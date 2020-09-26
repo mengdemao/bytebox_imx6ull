@@ -46,8 +46,6 @@ USER root
 RUN useradd -m -s /bin/bash bytebox &&\
 	passwd -d bytebox &&\
 	echo "bytebox      ALL = NOPASSWD: ALL" >> /etc/sudoers &&\
-	sed -i 's,#MAKEFLAGS="-j2",MAKEFLAGS="-j$(nproc)",g' /etc/makepkg.conf &&\
-	sed -i "s,PKGEXT='.pkg.tar.xz',PKGEXT='.pkg.tar',g" /etc/makepkg.conf &&\
 	mkdir -p /compiler && chmod -R bytebox:bytebox /compiler &&\
 	mkdir -p /playground && chmod -R bytebox:bytebox /playground
 

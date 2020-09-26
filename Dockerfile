@@ -46,8 +46,8 @@ USER root
 RUN useradd -m -s /bin/bash bytebox &&\
 	passwd -d bytebox &&\
 	echo "bytebox      ALL = NOPASSWD: ALL" >> /etc/sudoers &&\
-	mkdir -p /compiler && chmod -R bytebox:bytebox /compiler &&\
-	mkdir -p /playground && chmod -R bytebox:bytebox /playground
+	mkdir -p /compiler && chown -R bytebox:bytebox /compiler &&\
+	mkdir -p /playground && chown -R bytebox:bytebox /playground
 
 RUN pushd /compiler &&\
 	git clone https://github.com/crosstool-ng/crosstool-ng &&\

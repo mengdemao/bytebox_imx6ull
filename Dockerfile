@@ -49,6 +49,7 @@ RUN useradd -m -s /bin/bash bytebox &&\
 	mkdir -p /compiler && chown -R bytebox:bytebox /compiler &&\
 	mkdir -p /playground && chown -R bytebox:bytebox /playground
 
+USER root
 RUN pushd /compiler &&\
 	git clone https://github.com/crosstool-ng/crosstool-ng &&\
 	pushd crosstool-ng &&\

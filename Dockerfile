@@ -2,8 +2,6 @@ FROM archlinux
 
 RUN pacman --noconfirm  -Syu &&			\
 	pacman -S --need --noconfirm		\
-	clang								\
-	llvm								\
 	vim									\
 	grep								\
 	sed									\
@@ -23,20 +21,11 @@ RUN pacman --noconfirm  -Syu &&			\
 	unzip								\
 	wget								\
 	sudo								\
-	cmake								\
-	scons								\
-	doxygen								\
-	hugo								\
 	tar									\
 	sudo								\
 	pacman								\
-	go									\
-	rust								\
 	base-devel							\
 	zsh									\
-	neofetch							\
-	python-virtualenv					\
-	python-pip							\
 	help2man							\
 	lzip								\
 	axel								\
@@ -50,7 +39,8 @@ RUN useradd -m -s /bin/bash bytebox &&\
 	mkdir -p /playground && chown -R bytebox:bytebox /playground
 
 USER bytebox
-RUN pushd /compiler &&\
+COPY config /home/bytebox/.config
+RUN pushd /home/bytebox &&\
 	git clone https://github.com/crosstool-ng/crosstool-ng &&\
 	pushd crosstool-ng &&\
 	./bootstrap &&\
@@ -59,8 +49,9 @@ RUN pushd /compiler &&\
 	sudo make install &&\	
 	popd &&\
 	rm -rf crosstool-ng &&\
-	ct-ng arm-cortexa9_neon-linux-gnueabihf &&\
 	ct-ng build &&\
+	sudo mv x-tools/* /compiler &&\
+	rm -rf * &&\
 	popd
 
 VOLUME /playground

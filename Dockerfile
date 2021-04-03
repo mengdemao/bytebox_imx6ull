@@ -1,39 +1,33 @@
-FROM archlinux
+FROM alpine
 
-RUN pacman --noconfirm  -Syu &&			\
-	pacman -S --need --noconfirm		\
-	vim									\
-	grep								\
-	sed									\
-	gawk								\
-	uboot-tools							\
-	autoconf							\
-	automake							\
-	bison								\
-	bzip2								\
-	flex								\
-	git									\
-	gperf								\
-	make								\
-	python								\
-	texinfo								\
-	unrar								\
-	unzip								\
-	wget								\
-	sudo								\
-	tar									\
-	sudo								\
-	pacman								\
-	base-devel							\
-	zsh									\
-	help2man							\
-	lzip								\
-	axel								\
-	rsync
+RUN apk add --no-cache vim \
+	grep				   \
+	sed					   \
+	gawk				   \
+	uboot-tools			   \
+	autoconf			   \
+	automake			   \
+	bison				   \
+	bzip2				   \
+	flex				   \
+	git					   \
+	gperf				   \
+	make				   \
+	texinfo				   \
+	sudo				   \
+	tar                    \
+	gcc                    \
+	libc-dev               \
+	make                   \
+	openssl-dev            \
+	pcre-dev               \
+	zlib-dev               \
+	linux-headers          \
+	curl				   \
+	bash
 
 USER root
-RUN useradd -m -s /bin/bash bytebox &&\
-	passwd -d bytebox &&\
+RUN  addgroup -S bytebox && adduser -S bytebox -G bytebox && passwd -d bytebox &&\
 	echo "bytebox      ALL = NOPASSWD: ALL" >> /etc/sudoers &&\
 	mkdir -p /compiler && chown -R bytebox:bytebox /compiler &&\
 	mkdir -p /playground && chown -R bytebox:bytebox /playground
@@ -46,7 +40,7 @@ RUN pushd /home/bytebox &&\
 	./bootstrap &&\
 	./configure &&\
 	make &&\
-	sudo make install &&\	
+	sudo make install &&\
 	popd &&\
 	rm -rf crosstool-ng &&\
 	ct-ng build &&\

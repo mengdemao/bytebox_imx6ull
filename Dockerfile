@@ -13,7 +13,7 @@ RUN apt update -y &&					\
 	bzip2								\
 	flex								\
 	texinfo								\
-	libtool								\
+	libtool-bin							\
 	git									\
 	gperf								\
 	make								\

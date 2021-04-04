@@ -25,7 +25,8 @@ RUN apk add --no-cache vim \
 	linux-headers          \
 	curl				   \
 	bash				   \
-	xz
+	xz					   \
+	help2man
 
 USER root
 RUN  addgroup -S bytebox && adduser -S bytebox -G bytebox && passwd -d bytebox &&\

@@ -1,5 +1,6 @@
 FROM ubuntu:20.10
 
+# Install some software
 RUN apt update -y &&					\
 	apt upgrade -y &&					\
 	apt install -y						\
@@ -29,7 +30,8 @@ RUN apt update -y &&					\
 	sudo								\
 	python3-pip							\
 	help2man							\
-	lzip
+	lzip								\
+	libncurses5-dev
 
 # Add user and add directory
 USER root
@@ -42,15 +44,15 @@ RUN useradd -m -s /bin/bash bytebox && passwd -d bytebox		&&\
 # Build Crosstool Toolchain
 USER bytebox
 COPY config /home/bytebox/.config
-RUN cd /home/bytebox >> /dev/null						&&\
-	git clone https://github.com/crosstool-ng/crosstool-ng	&&\
-	cd crosstool-ng >> /dev/null							&&\
-	./bootstrap	&& ./configure && make && sudo make install	&&\
-	cd ~ >> /dev/null										&&\
-	rm -rf crosstool-ng										&&\
-	ct-ng build												&&\
-	sudo mv x-tools/* /compiler								&&\
-	rm -rf *												&&\
+RUN cd /home/bytebox >> /dev/null										&&\
+	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng	&&\
+	cd crosstool-ng >> /dev/null										&&\
+	./bootstrap	&& ./configure && make && sudo make install				&&\
+	cd ~ >> /dev/null													&&\
+	rm -rf crosstool-ng													&&\
+	ct-ng build															&&\
+	sudo mv x-tools/* /compiler											&&\
+	rm -rf *															&&\
 	cd ~ >> /dev/null
 
 # Set entrypoint

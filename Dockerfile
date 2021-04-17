@@ -43,7 +43,7 @@ RUN useradd -m -s /bin/bash bytebox && passwd -d bytebox		&&\
 
 # Build Crosstool Toolchain
 USER bytebox
-COPY bytebox-config /home/bytebox/.config
+COPY bytebox-defconfig /home/bytebox/.config
 RUN cd /home/bytebox >> /dev/null											&&\
 	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git	&&\
 	cd crosstool-ng >> /dev/null											&&\

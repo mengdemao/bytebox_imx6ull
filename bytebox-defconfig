@@ -45,7 +45,7 @@ CT_EXPERIMENTAL=y
 #
 # Paths
 #
-CT_LOCAL_TARBALLS_DIR="${CT_TOP_DIR}/src"
+CT_LOCAL_TARBALLS_DIR="${HOME}/src"
 CT_SAVE_TARBALLS=y
 # CT_TARBALLS_BUILDROOT_LAYOUT is not set
 CT_WORK_DIR="${CT_TOP_DIR}/.build"
@@ -112,14 +112,15 @@ CT_CONFIG_SHELL="${bash}"
 #
 # CT_LOG_ERROR is not set
 # CT_LOG_WARN is not set
-CT_LOG_INFO=y
-# CT_LOG_EXTRA is not set
+# CT_LOG_INFO is not set
+CT_LOG_EXTRA=y
 # CT_LOG_ALL is not set
 # CT_LOG_DEBUG is not set
-CT_LOG_LEVEL_MAX="INFO"
+CT_LOG_LEVEL_MAX="EXTRA"
 # CT_LOG_SEE_TOOLS_WARN is not set
-# CT_LOG_PROGRESS_BAR is not set
-# CT_LOG_TO_FILE is not set
+CT_LOG_PROGRESS_BAR=y
+CT_LOG_TO_FILE=y
+CT_LOG_FILE_COMPRESS=y
 
 #
 # Target options
@@ -222,7 +223,7 @@ CT_TOOLCHAIN_BUGURL=""
 #
 # Tuple completion and aliasing
 #
-CT_TARGET_VENDOR="bytebox"
+CT_TARGET_VENDOR="cortexa9_neon"
 CT_TARGET_ALIAS_SED_EXPR=""
 CT_TARGET_ALIAS=""
 
@@ -273,8 +274,8 @@ CT_LINUX_PATCH_GLOBAL=y
 # CT_LINUX_PATCH_LOCAL_BUNDLED is not set
 # CT_LINUX_PATCH_NONE is not set
 CT_LINUX_PATCH_ORDER="global"
-# CT_LINUX_V_4_20 is not set
-CT_LINUX_V_4_19=y
+CT_LINUX_V_4_20=y
+# CT_LINUX_V_4_19 is not set
 # CT_LINUX_V_4_18 is not set
 # CT_LINUX_V_4_17 is not set
 # CT_LINUX_V_4_16 is not set
@@ -294,7 +295,7 @@ CT_LINUX_V_4_19=y
 # CT_LINUX_V_3_4 is not set
 # CT_LINUX_V_3_2 is not set
 # CT_LINUX_NO_VERSIONS is not set
-CT_LINUX_VERSION="4.19.21"
+CT_LINUX_VERSION="4.20.8"
 CT_LINUX_MIRRORS="$(CT_Mirrors kernel.org linux ${CT_LINUX_VERSION})"
 CT_LINUX_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_LINUX_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
@@ -400,6 +401,8 @@ CT_ALL_BINUTILS_CHOICES="BINUTILS"
 # CT_LIBC_BIONIC is not set
 CT_LIBC_GLIBC=y
 # CT_LIBC_MUSL is not set
+# CT_LIBC_NEWLIB is not set
+# CT_LIBC_NONE is not set
 # CT_LIBC_UCLIBC is not set
 CT_LIBC="glibc"
 CT_LIBC_CHOICE_KSYM="GLIBC"
@@ -522,7 +525,8 @@ CT_GLIBC_SSP_DEFAULT=y
 # CT_GLIBC_SSP_YES is not set
 # CT_GLIBC_SSP_ALL is not set
 # CT_GLIBC_SSP_STRONG is not set
-CT_GLIBC_ENABLE_WERROR=y
+# CT_GLIBC_ENABLE_WERROR is not set
+# CT_NEWLIB_USE_REDHAT is not set
 CT_ALL_LIBC_CHOICES="AVR_LIBC BIONIC GLIBC MINGW_W64 MOXIEBOX MUSL NEWLIB NONE UCLIBC"
 CT_LIBC_SUPPORT_THREADS_ANY=y
 CT_LIBC_SUPPORT_THREADS_NATIVE=y
@@ -574,6 +578,7 @@ CT_GCC_V_8=y
 # CT_GCC_V_7 is not set
 # CT_GCC_V_6 is not set
 # CT_GCC_V_5 is not set
+# CT_GCC_V_4_9 is not set
 # CT_GCC_NO_VERSIONS is not set
 CT_GCC_VERSION="8.3.0"
 CT_GCC_MIRRORS="$(CT_Mirrors GNU gcc/gcc-${CT_GCC_VERSION}) $(CT_Mirrors sourceware gcc/releases/gcc-${CT_GCC_VERSION})"
@@ -977,31 +982,7 @@ CT_ZLIB=y
 # CT_COMP_TOOLS_FOR_HOST is not set
 # CT_COMP_TOOLS_AUTOCONF is not set
 # CT_COMP_TOOLS_AUTOMAKE is not set
-CT_COMP_TOOLS_BISON=y
-CT_COMP_TOOLS_BISON_PKG_KSYM="BISON"
-CT_BISON_DIR_NAME="bison"
-CT_BISON_PKG_NAME="bison"
-CT_BISON_SRC_RELEASE=y
-# CT_BISON_SRC_DEVEL is not set
-# CT_BISON_SRC_CUSTOM is not set
-CT_BISON_PATCH_GLOBAL=y
-# CT_BISON_PATCH_BUNDLED is not set
-# CT_BISON_PATCH_LOCAL is not set
-# CT_BISON_PATCH_BUNDLED_LOCAL is not set
-# CT_BISON_PATCH_LOCAL_BUNDLED is not set
-# CT_BISON_PATCH_NONE is not set
-CT_BISON_PATCH_ORDER="global"
-CT_BISON_V_3_3=y
-# CT_BISON_V_3_2 is not set
-# CT_BISON_V_3_1 is not set
-# CT_BISON_V_3_0 is not set
-# CT_BISON_NO_VERSIONS is not set
-CT_BISON_VERSION="3.3.2"
-CT_BISON_MIRRORS="$(CT_Mirrors GNU bison)"
-CT_BISON_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
-CT_BISON_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
-CT_BISON_ARCHIVE_FORMATS=".tar.xz .tar.gz"
-CT_BISON_SIGNATURE_FORMAT="packed/.sig"
+# CT_COMP_TOOLS_BISON is not set
 # CT_COMP_TOOLS_DTC is not set
 # CT_COMP_TOOLS_LIBTOOL is not set
 # CT_COMP_TOOLS_M4 is not set

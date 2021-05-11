@@ -1,12 +1,12 @@
 FROM ubuntu:20.10
 
 # Install some software
-RUN apt update -y &&					\
-	apt upgrade -y &&					\
-	apt install -y						\
-	gcc									\
+RUN apt update -y &&							\
+	apt upgrade -y &&						\
+	apt install -y							\
+	gcc								\
 	grep								\
-	sed									\
+	sed								\
 	gawk								\
 	autoconf							\
 	automake							\
@@ -15,7 +15,7 @@ RUN apt update -y &&					\
 	flex								\
 	texinfo								\
 	libtool-bin							\
-	git									\
+	git								\
 	gperf								\
 	make								\
 	python								\
@@ -26,7 +26,7 @@ RUN apt update -y &&					\
 	sudo								\
 	cmake								\
 	doxygen								\
-	tar									\
+	tar								\
 	sudo								\
 	python3-pip							\
 	help2man							\
@@ -45,17 +45,17 @@ RUN useradd -m -s /bin/bash bytebox && passwd -d bytebox		&&\
 USER bytebox
 COPY bytebox-arm-defconfig /home/bytebox/bytebox-arm-defconfig
 COPY bytebox-aarch64-defconfig /home/bytebox/bytebox-aarch64-defconfig
-RUN cd /home/bytebox >> /dev/null										&&\
+RUN cd /home/bytebox >> /dev/null						&&\
 	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git	&&\
-	cd crosstool-ng >> /dev/null											&&\
-	./bootstrap	&& ./configure && make && sudo make install					&&\
-	cd .. >> /dev/null														&&\
-	rm -rf crosstool-ng														&&\
-	mv bytebox-arm-defconfig .config										&&\
-	ct-ng build																&&\
-	mv bytebox-aarch64-defconfig .config									&&\
-	ct-ng build																&&\
-	rm -rf *																&&\
+	cd crosstool-ng >> /dev/null						&&\
+	./bootstrap	&& ./configure && make && sudo make install		&&\
+	cd .. >> /dev/null							&&\
+	rm -rf crosstool-ng							&&\
+	ct-ng aarch64-unknown-linux-gnu						&&\
+	ct-ng build								&&\
+	ct-ng arm-cortexa9_neon-linux-gnueabihf					&&\
+	ct-ng build								&&\
+	rm -rf *								&&\
 	cd ../../ >> /dev/null
 
 # Set entrypoint

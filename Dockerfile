@@ -45,18 +45,18 @@ RUN useradd -m -s /bin/bash bytebox && passwd -d bytebox		&&\
 USER bytebox
 COPY bytebox-arm-defconfig /home/bytebox/bytebox-arm-defconfig
 COPY bytebox-aarch64-defconfig /home/bytebox/bytebox-aarch64-defconfig
-RUN pushd /home/bytebox >> /dev/null										&&\
+RUN cd /home/bytebox >> /dev/null										&&\
 	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git	&&\
-	pushd crosstool-ng >> /dev/null											&&\
+	cd crosstool-ng >> /dev/null											&&\
 	./bootstrap	&& ./configure && make && sudo make install					&&\
-	popd >> /dev/null														&&\
+	cd .. >> /dev/null														&&\
 	rm -rf crosstool-ng														&&\
-	ct-ng bytebox-arm-defconfig												&&\
+	mv bytebox-arm-defconfig .config										&&\
 	ct-ng build																&&\
-	ct-ng bytebox-aarch64-defconfig											&&\
+	mv bytebox-aarch64-defconfig .config									&&\
 	ct-ng build																&&\
 	rm -rf *																&&\
-	popd >> /dev/null
+	cd ../../ >> /dev/null
 
 # Set entrypoint
 VOLUME /playground

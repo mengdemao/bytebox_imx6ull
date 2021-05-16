@@ -37,10 +37,10 @@ RUN 	apt update -y  &&						\
 
 # Add user and add directory
 USER root
-RUN useradd -m -s /bin/bash bytebox && passwd -d bytebox		&&\
-	echo "bytebox      ALL = NOPASSWD: ALL" >> /etc/sudoers		&&\
-	mkdir -p /compiler   && chown -R bytebox:bytebox /compiler	&&\
-	mkdir -p /bytebox    && chown -R bytebox:bytebox /bytebox	&&\
+RUN 	useradd -m -s /bin/bash bytebox && passwd -d bytebox &&\
+	echo "bytebox      ALL = NOPASSWD: ALL" >> /etc/sudoers	&&\
+	mkdir -p /compiler   && chown -R bytebox:bytebox /compiler &&\
+	mkdir -p /bytebox    && chown -R bytebox:bytebox /bytebox &&\
 	mkdir -p /playground && chown -R bytebox:bytebox /playground
 
 # Build Crosstool Toolchain
@@ -50,23 +50,24 @@ COPY bytebox-arm-defconfig /bytebox/bytebox-arm-defconfig
 COPY bytebox-aarch64-defconfig /bytebox/bytebox-aarch64-defconfig
 
 # 安装crosstool-ng
-RUN cd /bytebox >> /dev/null						&&\
-	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git	&&\
-	cd crosstool-ng >> /dev/null						&&\
-	./bootstrap	&& ./configure && make && sudo make install		&&\
-	cd .. >> /dev/null							&&\
+RUN 	cd /bytebox >> /dev/null &&\
+	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git &&\
+	cd crosstool-ng >> /dev/null &&\
+	./bootstrap	&& ./configure && make && sudo make install &&\
+	cd .. >> /dev/null &&\
 	rm -rf crosstool-ng
 
 # 编译 aarch64-unknown-linux-gnu
-RUN	ct-ng aarch64-unknown-linux-gnu						&&\	
-	ct-ng build
+RUN	cd /bytebox >> /dev/null &&\
+	ct-ng aarch64-unknown-linux-gnu	&&\	
+	ct-ng build &&\
+	cd .. >> /dev/null
 
 # 编译 arm-cortexa9_neon-linux-gnueabihf
-RUN	ct-ng arm-cortexa9_neon-linux-gnueabihf					&&\			
-	ct-ng build
-	
-# 清理
-RUN	rm -rf *
+RUN	cd /bytebox >> /dev/null && \
+	ct-ng arm-cortexa9_neon-linux-gnueabihf &&\			
+	ct-ng build &&\
+	cd .. >> /dev/null
 
 # Set entrypoint
 VOLUME /playground

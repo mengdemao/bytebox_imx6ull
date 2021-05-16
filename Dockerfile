@@ -45,11 +45,12 @@ RUN useradd -m -s /bin/bash bytebox && passwd -d bytebox		&&\
 
 # Build Crosstool Toolchain
 USER bytebox
-COPY bytebox-arm-defconfig /home/bytebox/bytebox-arm-defconfig
-COPY bytebox-aarch64-defconfig /home/bytebox/bytebox-aarch64-defconfig
+VOLUME /bytebox
+COPY bytebox-arm-defconfig /bytebox/bytebox-arm-defconfig
+COPY bytebox-aarch64-defconfig /bytebox/bytebox-aarch64-defconfig
 
 # 安装crosstool-ng
-RUN cd /home/bytebox >> /dev/null						&&\
+RUN cd /bytebox >> /dev/null						&&\
 	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git	&&\
 	cd crosstool-ng >> /dev/null						&&\
 	./bootstrap	&& ./configure && make && sudo make install		&&\

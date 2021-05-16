@@ -2,6 +2,8 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+
 # Install some software
 RUN 	apt update -y  &&						\
 	apt upgrade -y &&						\
@@ -26,7 +28,6 @@ RUN 	apt update -y  &&						\
 	unzip								\
 	wget								\
 	sudo								\
-	cmake								\
 	doxygen								\
 	tar								\
 	sudo								\
@@ -51,7 +52,7 @@ COPY bytebox-aarch64-defconfig /bytebox/bytebox-aarch64-defconfig
 
 # 安装crosstool-ng
 RUN 	cd /bytebox >> /dev/null &&\
-	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git &&\
+	git clone --depth=1 https://gitee.com/mengdemao/crosstool-ng.git &&\
 	cd crosstool-ng >> /dev/null &&\
 	./bootstrap	&& ./configure && make && sudo make install &&\
 	cd .. >> /dev/null &&\

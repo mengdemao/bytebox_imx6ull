@@ -1,7 +1,9 @@
 FROM ubuntu:latest
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install some software
-RUN	apt update -y  &&						\
+RUN 	apt update -y  &&						\
 	apt upgrade -y &&						\
 	apt install -y							\
 	gcc								\

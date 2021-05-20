@@ -52,7 +52,7 @@ COPY 	bytebox-aarch64-defconfig /bytebox/bytebox-aarch64-defconfig
 
 # 安装crosstool-ng
 RUN 	cd /bytebox >> /dev/null &&\
-	git clone --depth=1 https://gitee.com/mengdemao/crosstool-ng.git &&\
+	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng &&\
 	cd crosstool-ng >> /dev/null &&\
 	./bootstrap	&& ./configure && make && sudo make install &&\
 	cd .. >> /dev/null &&\

@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+# RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 
 # Install some software
 RUN 	apt update -y  &&						\
@@ -37,7 +37,7 @@ RUN 	apt update -y  &&						\
 	libncurses5-dev
 
 # Add user and add directory
-USER root
+USER 	root
 RUN 	useradd -m -s /bin/bash bytebox && passwd -d bytebox &&\
 	echo "bytebox      ALL = NOPASSWD: ALL" >> /etc/sudoers	&&\
 	mkdir -p /compiler   && chown -R bytebox:bytebox /compiler &&\
@@ -45,10 +45,10 @@ RUN 	useradd -m -s /bin/bash bytebox && passwd -d bytebox &&\
 	mkdir -p /playground && chown -R bytebox:bytebox /playground
 
 # Build Crosstool Toolchain
-USER bytebox
-VOLUME /bytebox
-COPY bytebox-arm-defconfig /bytebox/bytebox-arm-defconfig
-COPY bytebox-aarch64-defconfig /bytebox/bytebox-aarch64-defconfig
+USER 	bytebox
+VOLUME 	/bytebox
+COPY 	bytebox-arm-defconfig /bytebox/bytebox-arm-defconfig
+COPY 	bytebox-aarch64-defconfig /bytebox/bytebox-aarch64-defconfig
 
 # 安装crosstool-ng
 RUN 	cd /bytebox >> /dev/null &&\
@@ -71,10 +71,10 @@ RUN	cd /bytebox >> /dev/null && \
 	cd .. >> /dev/null
 
 # Set entrypoint
-VOLUME /playground
-COPY ./entrypoint.sh ./entrypoint.sh
-USER root
-RUN ["chmod", "+x", "./entrypoint.sh"]
-USER bytebox
+VOLUME 	/playground
+COPY 	./entrypoint.sh ./entrypoint.sh
+USER 	root
+RUN 	["chmod", "+x", "./entrypoint.sh"]
+USER 	bytebox
 
 ENTRYPOINT ["./entrypoint.sh"]

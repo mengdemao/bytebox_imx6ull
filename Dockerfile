@@ -60,13 +60,13 @@ RUN 	cd /bytebox >> /dev/null &&\
 
 # 编译 aarch64-unknown-linux-gnu
 RUN	cd /bytebox >> /dev/null &&\
-	ct-ng aarch64-unknown-linux-gnu	&&\	
+	cp bytebox-arm-defconfig .config	&&\
 	ct-ng build &&\
 	cd .. >> /dev/null
 
 # 编译 arm-cortexa9_neon-linux-gnueabihf
 RUN	cd /bytebox >> /dev/null && \
-	ct-ng arm-cortexa9_neon-linux-gnueabihf &&\			
+	ct-ng bytebox-aarch64-defconfig .config &&\
 	ct-ng build &&\
 	cd .. >> /dev/null
 

@@ -64,13 +64,19 @@ RUN 	cd /bytebox >> /dev/null &&\
 
 # 编译 aarch64-unknown-linux-gnu
 RUN	cd /bytebox >> /dev/null &&\
-	cp bytebox-arm-defconfig .config	&&\
+	ct-ng arm-unknown-linux-gnueabi &&\
+	sed -i -e '/CT_LOG_PROGRESS_BAR/s/y$/n/' .config &&\
+        sed -i -e '/CT_LOCAL_TARBALLS_DIR/s/HOME/CT_TOP_DIR/' .config &&\
+        sed -i -e '/CT_PREFIX_DIR/s/HOME/CT_TOP_DIR/' .config &&\
 	ct-ng build &&\
 	cd .. >> /dev/null
 
 # 编译 arm-cortexa9_neon-linux-gnueabihf
 RUN	cd /bytebox >> /dev/null && \
-	ct-ng bytebox-aarch64-defconfig .config &&\
+	ct-ng aarch64-unknown-linux-gnu .config &&\
+        sed -i -e '/CT_LOG_PROGRESS_BAR/s/y$/n/' .config &&\
+        sed -i -e '/CT_LOCAL_TARBALLS_DIR/s/HOME/CT_TOP_DIR/' .config &&\
+        sed -i -e '/CT_PREFIX_DIR/s/HOME/CT_TOP_DIR/' .config &&\
 	ct-ng build &&\
 	cd .. >> /dev/null
 

@@ -288,11 +288,11 @@ CT_LINUX_PATCH_GLOBAL=y
 # CT_LINUX_PATCH_LOCAL_BUNDLED is not set
 # CT_LINUX_PATCH_NONE is not set
 CT_LINUX_PATCH_ORDER="global"
-CT_LINUX_V_5_12=y
+# CT_LINUX_V_5_12 is not set
 # CT_LINUX_V_5_11 is not set
 # CT_LINUX_V_5_10 is not set
 # CT_LINUX_V_5_9 is not set
-# CT_LINUX_V_5_8 is not set
+CT_LINUX_V_5_8=y
 # CT_LINUX_V_5_7 is not set
 # CT_LINUX_V_5_4 is not set
 # CT_LINUX_V_5_3 is not set
@@ -319,7 +319,7 @@ CT_LINUX_V_5_12=y
 # CT_LINUX_V_3_10 is not set
 # CT_LINUX_V_3_4 is not set
 # CT_LINUX_V_3_2 is not set
-CT_LINUX_VERSION="5.12.4"
+CT_LINUX_VERSION="5.8.18"
 CT_LINUX_MIRRORS="$(CT_Mirrors kernel.org linux ${CT_LINUX_VERSION})"
 CT_LINUX_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_LINUX_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"

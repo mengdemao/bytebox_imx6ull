@@ -5,12 +5,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 # RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 
 # Install some software
-RUN 	apt update -y  &&				\
-	apt upgrade -y &&					\
-	apt install -y						\
-	gcc									\
+RUN 	apt update -y  &&						\
+	apt upgrade -y &&						\
+	apt install -y							\
+	gcc								\
 	grep								\
-	sed									\
+	sed								\
 	gawk								\
 	autoconf							\
 	automake							\
@@ -19,7 +19,7 @@ RUN 	apt update -y  &&				\
 	flex								\
 	texinfo								\
 	libtool-bin							\
-	git									\
+	git								\
 	gperf								\
 	make								\
 	python								\
@@ -29,14 +29,16 @@ RUN 	apt update -y  &&				\
 	wget								\
 	sudo								\
 	doxygen								\
-	tar									\
+	tar								\
 	sudo								\
 	python3-pip							\
 	help2man							\
 	lzip								\
-	libncurses5-dev						\
+	libncurses5-dev							\
 	apt-utils 							\
-	ca-certificates
+	ca-certificates							\
+	u-boot-tools							\
+	linux-headers-$(uname -r)
 
 # Add user and add directory
 USER 	root

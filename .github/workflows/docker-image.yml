@@ -24,15 +24,15 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - 
         name: Install crosstool-ng 
-        run:
-	        git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git
-	        cd crosstool-ng >> /dev/null
-	        ./bootstrap 
+        run: |
+	  git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git
+	  cd crosstool-ng
+	  ./bootstrap 
           ./configure
           make 
           sudo make install
-	        cd .. >> /dev/null
-	        rm -rf crosstool-ng
+	  cd .. >> /dev/null
+	  rm -rf crosstool-ng
       
       - 
         name: build bytebox-aarch64-defconfig

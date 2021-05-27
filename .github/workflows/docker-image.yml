@@ -25,7 +25,8 @@ jobs:
       - 
         name: Install crosstool-ng 
         run: |
-          git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.gicd crosstool-ng
+          git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git
+          cd crosstool-ng
           ./bootstrap 
           ./configure
           make 

@@ -1,10 +1,5 @@
 * Dockerize Cross Compiler
 
-** 使用
-#+BEGIN_SRC text
-   这个编译器是配合工程的dokcer-compse使用的;一般情况下不要直接使用.
-#+END_SRC
-
 ** 编译
 #+BEGIN_SRC shell
 docker build -t mengdemao/bytebox-compiler:latest .

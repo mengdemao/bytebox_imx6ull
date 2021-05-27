@@ -22,6 +22,29 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - 
+        name: Install crosstool-ng 
+        run:
+	        git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git
+	        cd crosstool-ng >> /dev/null
+	        ./bootstrap 
+          ./configure
+          make 
+          sudo make install
+	        cd .. >> /dev/null
+	        rm -rf crosstool-ng
+      
+      - 
+        name: build bytebox-aarch64-defconfig
+        run: |
+          cp bytebox-aarch64-defconfig .config
+          ct-ng build
+      - 
+        name: build bytebox-arm-defconfig
+        run: |
+          cp bytebox-arm-defconfig .config
+          ct-ng build
+
       -
         name: Build and push
         id: docker_build

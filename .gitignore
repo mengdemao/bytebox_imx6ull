@@ -1,0 +1,8 @@
+.config
+.config.*
+src
+.build/*
+*.log
+arm-bytebox-linux-gnueabihf/
+aarch64-bytebox-linux-gnu/
+crosstool-ng/

@@ -48,37 +48,24 @@ RUN 	useradd -m -s /bin/bash bytebox && passwd -d bytebox &&\
 	mkdir -p /bytebox    && chown -R bytebox:bytebox /bytebox &&\
 	mkdir -p /playground && chown -R bytebox:bytebox /playground
 
+# 安装crosstool-ng
+RUN 	cd /bytebox >> /dev/null &&\
+	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git &&\
+	cd crosstool-ng >> /dev/null &&\
+	./bootstrap	&& ./configure && make && sudo make install &&\
+	cd .. >> /dev/null &&\
+	rm -rf crosstool-ng
+
 # Build Crosstool Toolchain
 USER 	bytebox
 VOLUME 	/bytebox
 COPY 	bytebox-arm-defconfig /bytebox/bytebox-arm-defconfig
 COPY 	bytebox-aarch64-defconfig /bytebox/bytebox-aarch64-defconfig
 
-# 安装crosstool-ng
-RUN 	cd /bytebox >> /dev/null &&\
-	git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng &&\
-	cd crosstool-ng >> /dev/null &&\
-	./bootstrap	&& ./configure && make && sudo make install &&\
-	cd .. >> /dev/null &&\
-	rm -rf crosstool-ng
-
-# 编译 aarch64-unknown-linux-gnu
-RUN	cd /bytebox >> /dev/null &&\
-	ct-ng arm-unknown-linux-gnueabi &&\
-	sed -i -e '/CT_LOG_PROGRESS_BAR/s/y$/n/' .config &&\
-        sed -i -e '/CT_LOCAL_TARBALLS_DIR/s/HOME/CT_TOP_DIR/' .config &&\
-        sed -i -e '/CT_PREFIX_DIR/s/HOME/CT_TOP_DIR/' .config &&\
-	ct-ng build &&\
-	cd .. >> /dev/null
-
-# 编译 arm-cortexa9_neon-linux-gnueabihf
-RUN	cd /bytebox >> /dev/null && \
-	ct-ng aarch64-unknown-linux-gnu .config &&\
-        sed -i -e '/CT_LOG_PROGRESS_BAR/s/y$/n/' .config &&\
-        sed -i -e '/CT_LOCAL_TARBALLS_DIR/s/HOME/CT_TOP_DIR/' .config &&\
-        sed -i -e '/CT_PREFIX_DIR/s/HOME/CT_TOP_DIR/' .config &&\
-	ct-ng build &&\
-	cd .. >> /dev/null
+# 拷贝工具链
+VOLUME 	/compiler
+COPY 	arm-bytebox-linux-gnueabihf /compiler/arm-bytebox-linux-gnueabihf
+COPY 	aarch64-bytebox-linux-gnu /bytebox/aarch64-bytebox-linux-gnu
 
 # Set entrypoint
 VOLUME 	/playground

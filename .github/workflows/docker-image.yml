@@ -25,14 +25,13 @@ jobs:
       - 
         name: Install crosstool-ng 
         run: |
-	  git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.git
-	  cd crosstool-ng
-	  ./bootstrap 
+          git clone --depth=1 https://github.com/crosstool-ng/crosstool-ng.gicd crosstool-ng
+          ./bootstrap 
           ./configure
           make 
           sudo make install
-	  cd .. >> /dev/null
-	  rm -rf crosstool-ng
+          cd .. >> /dev/null
+          rm -rf crosstool-ng
       
       - 
         name: build bytebox-aarch64-defconfig

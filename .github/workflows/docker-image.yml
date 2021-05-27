@@ -10,6 +10,12 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - name: Install Software
+      - run: |
+          apt update -y
+          apt upgrade -y
+          apt install -y gcc grep sed gawk autoconf	automake bison bzip2 flex texinfo libtool-bin	git doxygen
+          apt install -y gperf make python texinfo unrar python3-pip help2man libncurses5-dev sudo unzip wget
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -33,7 +39,6 @@ jobs:
           sudo make install
           cd .. >> /dev/null
           rm -rf crosstool-ng
-      
       - 
         name: build bytebox-aarch64-defconfig
         run: |
@@ -44,7 +49,6 @@ jobs:
         run: |
           cp bytebox-arm-defconfig .config
           ct-ng build
-
       -
         name: Build and push
         id: docker_build

@@ -25,10 +25,10 @@ jobs:
       - 
         name: Install Software
         run: |
-          apt update -y
-          apt upgrade -y
-          apt install -y gcc grep sed gawk autoconf	automake bison bzip2 flex texinfo libtool-bin	git doxygen
-          apt install -y gperf make python texinfo unrar python3-pip help2man libncurses5-dev sudo unzip wget
+          sudo apt update -y
+          sudo apt upgrade -y
+          sudo apt install -y gcc grep sed gawk autoconf	automake bison bzip2 flex texinfo libtool-bin	git doxygen
+          sudo apt install -y gperf make python texinfo unrar python3-pip help2man libncurses5-dev sudo unzip wget
       - 
         name: Install crosstool-ng 
         run: |

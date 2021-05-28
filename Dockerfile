@@ -65,7 +65,7 @@ COPY 	bytebox-aarch64-defconfig /bytebox/bytebox-aarch64-defconfig
 # 拷贝工具链
 VOLUME 	/compiler
 COPY 	arm-bytebox-linux-gnueabihf /compiler/arm-bytebox-linux-gnueabihf
-COPY 	aarch64-bytebox-linux-gnu /bytebox/aarch64-bytebox-linux-gnu
+COPY 	aarch64-bytebox-linux-gnu /compiler/aarch64-bytebox-linux-gnu
 
 # Set entrypoint
 VOLUME 	/playground

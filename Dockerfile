@@ -37,7 +37,10 @@ RUN 	apt update -y  &&						\
 	libncurses5-dev							\
 	apt-utils 							\
 	ca-certificates							\
-	u-boot-tools
+	u-boot-tools							\
+	bc 								\
+	cpio 								\
+	rsync
 
 # Add user and add directory
 USER 	root
